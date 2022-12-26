@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "django-lecture-base-board"
+version = "0.1.0"
+description = ""
+authors = ["BeTweak <ys@betweak.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "django_lecture_base_board"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.1.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
