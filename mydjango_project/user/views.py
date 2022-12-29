@@ -7,7 +7,10 @@ def index(request):
         "이름": "신윤수",
         "별명": "ys",
     }
-    value = ""
+
+    value = """<h1>나의 프로필</h1>"""
+    value += "<ul>"
     for k, v in my_profile.items():
-        value += f"{k}: {v}<br/>"
+        value += f"<li>{k}: {v}</li>"
+    value += "</ul>"
     return HttpResponse(value)
