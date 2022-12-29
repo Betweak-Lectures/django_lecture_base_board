@@ -9,5 +9,5 @@ def index(request):
     }
     value = ""
     for k, v in my_profile.items():
-        value += f"{k}: {value}<br/>"
+        value += f"{k}: {v}<br/>"
     return HttpResponse(value)
