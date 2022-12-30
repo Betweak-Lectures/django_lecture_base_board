@@ -10,8 +10,7 @@ packages = [{include = "django_lecture_base_board"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "^4.1.4"
-jupyter = "^1.0.0"
-notebook = "^6.5.2"
+mysqlclient = "^2.1.1"
 
 
 [build-system]
