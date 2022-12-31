@@ -11,8 +11,9 @@ def index(request):
 
 
 def board_detail(request, board_id):
-    board = Board.objects.prefetch_related('comment_set').get(id=board_id)
-    if not board:
+    try:
+        board = Board.objects.prefetch_related('comment_set').get(id=board_id)
+    except Board.DoesNotExist:
         raise Http404("게시글이 없습니다.")
     return render(request, 'board/detail.html', {'board': board})
 
