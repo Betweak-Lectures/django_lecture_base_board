@@ -24,16 +24,15 @@
 				<div class="contents">
 					<form action="{% url "board:write" %}" method="POST">
 						{% csrf_token %}
-						<div class="board-header p-3 mb-3">
-							<label for="title-input" class="form-label">글 제목</label>
-							<input type="text" name="title" class="form-control" id="title-input" placeholder="글 제목을 입력해주세요.">
-							<div id="content-help" class="form-text">We'll never share your email with anyone else.</div>
-						</div>
-						<div class="board-content p-3 mb-3">
-							<label for="content-input" class="form-label">내용</label>
-							<textarea class="form-control" name="content" id="content-input" rows=10"></textarea>
-							<div id="content-help" class="form-text">We'll never share your email with anyone else.</div>
-						</div>
+
+						{% for field in form %}
+							<div class="fieldWrapper m-2">
+								{{ field.label_tag }} {{ field }}
+								{% for error in field.errors %}
+									<div id="content-help" class="form-text text-danger">{{ field.errors }}</div>
+								{% endfor %}
+							</div>
+						{% endfor %}
 
 						<div class="mb-3 p-3">
 							<div style="float:right">

@@ -19,11 +19,14 @@ def board_detail(request, board_id):
     return render(request, 'board/detail.html', {'board': board})
 
 
-def board_create(request):
-    if request.method == 'POST':
-        data = request.POST
-        title, content = data['title'], data['content']
-        board = Board.objects.create(title=title, content=content)
-        return redirect(reverse('board:index', ))
+from .forms import BoardForm
 
-    return render(request, 'board/create.html')
+
+def board_create(request):
+    form = BoardForm()
+    if request.method == 'POST':
+        form = BoardForm(request.POST)
+        if form.is_valid():
+            board = form.save()
+            return redirect(reverse('board:index', ))
+    return render(request, 'board/create.html', {'form': form})
