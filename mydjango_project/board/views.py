@@ -1,6 +1,7 @@
 # Create your views here.
 from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from .models import Board, Comment
 
@@ -19,4 +20,10 @@ def board_detail(request, board_id):
 
 
 def board_create(request):
+    if request.method == 'POST':
+        data = request.POST
+        title, content = data['title'], data['content']
+        board = Board.objects.create(title=title, content=content)
+        return redirect(reverse('board:index', ))
+
     return render(request, 'board/create.html')
