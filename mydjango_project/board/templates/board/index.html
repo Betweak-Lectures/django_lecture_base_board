@@ -31,6 +31,18 @@
 	</style>
 
 	<div class="container mt-5">
+
+
+		<div class="nav-loc mb-3 d-flex justify-content-between">
+			<h3>게시판 리스트</h3>
+			<div>
+
+				<a href="{% url "board:write" %}" class="btn btn-outline-primary">
+					글 작성하기
+				</a>
+			</div>
+		</div>
+
 		<ol class="list-group row">
 			{% for board in board_list %}
 				<a href="{% url "board:detail" board.id %}" class="list-a col-12 col-sm-6">

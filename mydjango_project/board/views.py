@@ -13,3 +13,7 @@ def index(request):
 def board_detail(request, board_id):
     board = Board.objects.prefetch_related('comment_set').get(id=board_id)
     return render(request, 'board/detail.html', {'board': board})
+
+
+def board_create(request):
+    return render(request, 'board/create.html')
