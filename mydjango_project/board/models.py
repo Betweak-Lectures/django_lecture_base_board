@@ -20,6 +20,6 @@ class Board(models.Model):
 
 class Comment(models.Model):
     board = models.ForeignKey('Board', on_delete=models.SET_NULL, null=True)
-    content = models.CharField(max_length=255)
+    content = models.CharField("댓글", max_length=255, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
