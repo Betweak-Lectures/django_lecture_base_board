@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'board.apps.BoardConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +75,7 @@ WSGI_APPLICATION = 'mydjango_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_mysite',
+        'NAME': 'django_board',
         'USER': 'root',
         'PASSWORD': 'admin1234',
         'HOST': 'localhost',
@@ -120,3 +121,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/user'
