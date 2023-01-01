@@ -8,13 +8,13 @@ from .forms import BoardForm, CommentForm
 
 
 def index(request):
-    board_list = Board.objects.all()
+    board_list = Board.active_list().all()
     return render(request, 'board/index.html', {'board_list': board_list})
 
 
 def board_detail(request, board_id):
     try:
-        board = Board.objects.prefetch_related('comment_set').get(id=board_id)
+        board = Board.active_list().prefetch_related('comment_set').get(id=board_id)
         comment_form = CommentForm(initial={'board': board})
     except Board.DoesNotExist:
         raise Http404("게시글이 없습니다.")
@@ -33,6 +33,9 @@ def board_create(request):
 
 def board_edit(request, board_id):
     board = get_object_or_404(Board, id=board_id)
+    if not board.is_active():
+        raise Http404("게시물이 없습니다.")
+
     form = BoardForm({'title': board.title, 'content': board.content})
 
     if request.method == "POST":
@@ -46,6 +49,15 @@ def board_edit(request, board_id):
     return render(request, 'board/edit.html', {'form': form, 'board': board})
 
 
+def board_delete(request, board_id):
+    board = get_object_or_404(Board, id=board_id)
+    if not board.is_active():
+        raise Http404("게시물이 없습니다.")
+
+    board = board.delete()
+    return redirect(reverse('board:index', ))
+
+
 def board_comment(request):
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -54,3 +66,7 @@ def board_comment(request):
             board = form.cleaned_data['board']
 
     return redirect(reverse('board:detail', kwargs=({'board_id': board.id})))
+
+# def board_delete(request, board_id):
+#     board = get_object_or_404(Board, id=board_id)
+#     board.

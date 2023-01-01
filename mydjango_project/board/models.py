@@ -17,6 +17,19 @@ class Board(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # 추가될 때 default로 현재시간
     updated_at = models.DateTimeField(auto_now=True)  # 추가or업데이트 될 때 default로 현재시간
 
+    deleted_at = models.DateTimeField(null=True)
+
+    def delete(self):
+        self.deleted_at = timezone.now()
+        return self.save()
+
+    def is_active(self):
+        return not bool(self.deleted_at)
+
+    @classmethod
+    def active_list(cls):
+        return cls.objects.filter(deleted_at__isnull=True)
+
 
 class Comment(models.Model):
     board = models.ForeignKey('Board', on_delete=models.SET_NULL, null=True)
