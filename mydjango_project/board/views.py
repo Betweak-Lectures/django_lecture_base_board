@@ -1,6 +1,6 @@
 # Create your views here.
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .models import Board, Comment
@@ -29,6 +29,21 @@ def board_create(request):
             board = form.save()
             return redirect(reverse('board:index', ))
     return render(request, 'board/create.html', {'form': form})
+
+
+def board_edit(request, board_id):
+    board = get_object_or_404(Board, id=board_id)
+    form = BoardForm({'title': board.title, 'content': board.content})
+
+    if request.method == "POST":
+        form = BoardForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            board.title = data['title']
+            board.content = data['content']
+            board.save()
+            return redirect(reverse('board:detail', kwargs={'board_id': board.id}))
+    return render(request, 'board/edit.html', {'form': form, 'board': board})
 
 
 def board_comment(request):

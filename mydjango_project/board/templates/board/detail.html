@@ -45,8 +45,16 @@
 						<h5 class="my-0 fw-bolder">
 							{{ board.title }}
 						</h5>
-						<div class="">
-							{{ board.created_at|date:"Y.m.d h:m" }}
+						<div class="d-flex" style="align-items: center;">
+							<div style="margin-right:10px;">
+								<div class="btn-group" role="group" aria-label="Basic outlined example">
+									<a href="{% url "board:edit" board.id %}" type="button" class="btn btn-outline-success">수정</a>
+									<a type="button" class="btn btn-outline-danger">삭제</a>
+								</div>
+							</div>
+							<div>
+								{{ board.created_at|date:"Y.m.d h:m" }}
+							</div>
 						</div>
 					</div>
 
@@ -62,7 +70,6 @@
 				<div class="comment-total py-2 px-4">
 					댓글 <strong>{{ board.comment_set.count }}</strong>개
 				</div>
-				{#			div.text#}
 				<div class="container mb-1">
 					<form action="{% url "board:comment" %}" method="POST">
 						{% csrf_token %}
