@@ -8,7 +8,9 @@ from .forms import RegisterForm
 
 
 def index(request):
-    return render(request, 'user/profile.html')
+    response = render(request, 'user/profile.html', )
+    response.set_cookie('cookie_test', 'test_value')
+    return response
 
 
 def register(request):
