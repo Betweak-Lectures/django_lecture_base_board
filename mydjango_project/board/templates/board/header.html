@@ -20,8 +20,9 @@
 			<!--				</form>-->
 
 			<div class="text-end">
-				<button type="button" class="btn btn-outline-light me-2">Login</button>
-				<button type="button" class="btn btn-warning">Sign-up</button>
+				<a href="{% url "user:login" %}" type="button" class="btn btn-outline-light me-2">로그인</a>
+				{#				<a href="{% url "user:login" %}" type="button" class="btn btn-outline-light me-2">로그인</a>#}
+				<a href="{% url "user:logout" %}" type="button" class="btn btn-warning">로그아웃</a>
 			</div>
 		</div>
 	</div>
