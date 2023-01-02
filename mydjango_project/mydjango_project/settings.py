@@ -80,7 +80,7 @@ DATABASES = {
         'PASSWORD': 'admin1234',
         'HOST': 'localhost',
         'PORT': 3306,
-    }
+    },
 }
 
 # Password validation
